@@ -7,7 +7,7 @@ $twig   = new \Twig\Environment($loader);
 $templates = $twig->load('index.twig');
 //~ URL appelée nous retournant des données au format JSON
 
-echo '<form action="http://localhost" method="post" class="form-example">
+echo '<form action="http://oh.my03.com" method="post" class="form-example">
   <div class="form-example">
     <label for="name">Combien de profils?: </label>
     <input type="text" name="nbr" value="3" id="name" >
