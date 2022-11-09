@@ -38,16 +38,16 @@ function contentMaker($utilisateurs)
                     foreach( $utilisateurs as $utilisateur){
 
                 $string='<div class="card col-4">';
-                $string=$string.'<img class="card-img-top" src="'. $utilisateur['picture']['medium'].'" alt="Image de' .  $utilisateur['name']['first'].'"/>';
-                $string=$string. '<div class="card-body">';
-                $string=$string.'<h5 class="card-title">';
-                $string=$string.'Bonjour, mon nom est '. ucfirst($utilisateur['name']['first'])." ".strtoupper($utilisateur['name']['last']);
-                $string=$string. '</h5>';
-                $string=$string.'<p class="card-text">';
-                $string=$string.' J\'habite "'. strtoupper($utilisateur['location']['state']).'", dans une ville qui s\'appelle "'. strtoupper($utilisateur['location']['city']).'"<br><br>';
-                $string=$string.'</p><p class="card-text"><small class="text-muted">Mon adresse e-mail est <a href="mailto:'.$utilisateur['email'].' title="Envoyer un email à'. ucfirst($utilisateur['name']['first']).'">'. $utilisateur['email'].'</a>, dont le mot de passe est "'.$utilisateur['login']['password'].'"';
-                $string=$string.'</small></p></div></div>';
-                $result=$result.$string;
+                $string.='<img class="card-img-top" src="'. $utilisateur['picture']['medium'].'" alt="Image de' .  $utilisateur['name']['first'].'"/>';
+                $string.= '<div class="card-body">';
+                $string.='<h5 class="card-title">';
+                $string.='Bonjour, mon nom est '. ucfirst($utilisateur['name']['first'])." ".strtoupper($utilisateur['name']['last']);
+                $string.= '</h5>';
+                $string.='<p class="card-text">';
+                $string.=' J\'habite "'. strtoupper($utilisateur['location']['state']).'", dans une ville qui s\'appelle "'. strtoupper($utilisateur['location']['city']).'"<br><br>';
+                $string.='</p><p class="card-text"><small class="text-muted">Mon adresse e-mail est <a href="mailto:'.$utilisateur['email'].' title="Envoyer un email à'. ucfirst($utilisateur['name']['first']).'">'. $utilisateur['email'].'</a>, dont le mot de passe est "'.$utilisateur['login']['password'].'"';
+                $string.='</small></p></div></div>';
+                $result.=$string;
     }
                     return utf8_encode($result);
              }
