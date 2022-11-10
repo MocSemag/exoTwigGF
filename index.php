@@ -1,13 +1,13 @@
 <?php
-require_once dirname(__DIR__).'/vendor/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $loader = new \Twig\Loader\FilesystemLoader('templates');
-$twig   = new \Twig\Environment($loader);
+$twig = new \Twig\Environment($loader);
 
 $templates = $twig->load('index.twig');
 //~ URL appelée nous retournant des données au format JSON
 
-echo '<form action="http://oh.my03.com" method="post" class="form-example">
+$form = '<form action="http://oh.my03.com" style="text-align:center" method="post" class="form-example">
   <div class="form-example">
     <label for="name">Combien de profils?: </label>
     <input type="text" name="nbr" value="3" id="name" >
@@ -15,12 +15,12 @@ echo '<form action="http://oh.my03.com" method="post" class="form-example">
   </div>
 </form>
 ';
-$nbr=3;
-if (isset($_POST['nbr']) && is_numeric($_POST['nbr'])){
-    $nbr=$_POST['nbr'];
-    $data_url = 'http://api.randomuser.me/?results='.$nbr;
-}else
-$data_url = 'http://api.randomuser.me/?results=3';
+$nbr = 3;
+if (isset($_POST['nbr']) && is_numeric($_POST['nbr'])) {
+    $nbr = $_POST['nbr'];
+    $data_url = 'http://api.randomuser.me/?results=' . $nbr;
+} else
+    $data_url = 'http://api.randomuser.me/?results=3';
 
 //~ On appelle l'URL et on stocke le contenu retourné dans une variable
 $data_contenu = file_get_contents($data_url);
@@ -32,30 +32,10 @@ $data_array = json_decode($data_contenu, true);
 $utilisateurs = $data_array['results'];
 
 
-function contentMaker($utilisateurs)
-{
-    $result='';
-                    foreach( $utilisateurs as $utilisateur){
-
-                $string='<div class="card col-4">';
-                $string.='<img class="card-img-top" src="'. $utilisateur['picture']['medium'].'" alt="Image de' .  $utilisateur['name']['first'].'"/>';
-                $string.= '<div class="card-body">';
-                $string.='<h5 class="card-title">';
-                $string.='Bonjour, mon nom est '. ucfirst($utilisateur['name']['first'])." ".strtoupper($utilisateur['name']['last']);
-                $string.= '</h5>';
-                $string.='<p class="card-text">';
-                $string.=' J\'habite "'. strtoupper($utilisateur['location']['state']).'", dans une ville qui s\'appelle "'. strtoupper($utilisateur['location']['city']).'"<br><br>';
-                $string.='</p><p class="card-text"><small class="text-muted">Mon adresse e-mail est <a href="mailto:'.$utilisateur['email'].' title="Envoyer un email à'. ucfirst($utilisateur['name']['first']).'">'. $utilisateur['email'].'</a>, dont le mot de passe est "'.$utilisateur['login']['password'].'"';
-                $string.='</small></p></div></div>';
-                $result.=$string;
-    }
-                    return utf8_encode($result);
-             }
-
 echo $templates->render(
-[
-        'content' => contentMaker($utilisateurs)
-
-]
+    [
+        'utilisateurs' => $utilisateurs,
+        'form' => $form
+    ]
 );
 ?>
